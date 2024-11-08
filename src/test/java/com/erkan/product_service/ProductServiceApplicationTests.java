@@ -17,6 +17,8 @@ import com.erkan.product_service.dto.ProductRequestDto;
 import org.springframework.http.MediaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.erkan.product_service.repository.ProductRepository;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @TestPropertySource(properties = {
@@ -31,9 +33,10 @@ class ProductServiceApplicationTests {
 
 	@Autowired
 	private MockMvc mockMvc;
-
 	@Autowired
 	private ObjectMapper objectMapper;
+	@Autowired
+	private ProductRepository productRepository;
 
 	@DynamicPropertySource
 	static void setProperties(DynamicPropertyRegistry registry) {
@@ -49,6 +52,7 @@ class ProductServiceApplicationTests {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(productRequestString))
 				.andExpect(status().isCreated());
+		assertThat(productRepository.findAll().size()).isEqualTo(1);
 	}
 
 	private ProductRequestDto getProductRequest() {
