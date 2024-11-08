@@ -13,7 +13,7 @@ import com.erkan.product_service.dto.ProductResponseDto;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/product")
+@RequestMapping("/product")
 public class ProductController {
 
     private final ProductService productService;
