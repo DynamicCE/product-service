@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.erkan.product_service.dto.ProductResponseDto;
 import java.util.List;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/product")
@@ -25,7 +26,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<ProductResponseDto> createProduct(@RequestBody ProductRequestDto productRequestDto) {
         ProductResponseDto createdProduct = productService.createProduct(productRequestDto);
-        return ResponseEntity.ok(createdProduct);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
 
     @GetMapping
